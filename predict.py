@@ -43,9 +43,9 @@ def decode_clip(preds, scale=1, threshold=0.7311, min_area=5):
 class Pytorch_model:
     def __init__(self, model_path, gpu_id=None):
         '''
-        初始化pytorch模型
-        :param model_path: 模型地址(可以是模型的参数或者参数和计算图一起保存的文件)
-        :param gpu_id: 在哪一块gpu上运行
+        Initialize the pytorch model
+        param model_path: model address (can be the parameters of the model or the file saved with the calculation graph)
+        param gpu_id: which GPU to run on
         '''
         self.gpu_id = gpu_id
 
@@ -67,10 +67,10 @@ class Pytorch_model:
 
     def predict(self, img: str, short_size: int = 736):
         '''
-        对传入的图像进行预测，支持图像地址,opecv 读取图片，偏慢
-        :param img: 图像地址
-        :param is_numpy:
-        :return:
+         Predict the incoming image, support the image address, opecv read the picture, it is slow
+         :param img: image address
+         :param is_numpy:
+         :return:
         '''
         assert os.path.exists(img), 'file is not exists'
         img = cv2.imread(img)
@@ -79,7 +79,7 @@ class Pytorch_model:
         h, w = img.shape[:2]
         scale = short_size / min(h, w)
         img = cv2.resize(img, None, fx=scale, fy=scale)
-        # 将图片由(w,h)变为(1,img_channel,h,w)
+        # Change the picture from (w,h) to (1,img_channel,h,w)
         tensor = transforms.ToTensor()(img)
         tensor = tensor.unsqueeze_(0)
 
@@ -110,7 +110,7 @@ if __name__ == '__main__':
     img_id = 10
     img_path = 'images/bill.jpg'
 
-    # 初始化网络
+    # Initialize the network
     model = Pytorch_model(model_path, gpu_id=0)
     preds, boxes_list, t = model.predict(img_path)
     show_img(preds)
