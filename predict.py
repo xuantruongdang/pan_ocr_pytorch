@@ -65,7 +65,7 @@ class Pytorch_model:
         self.net.to(self.device)
         self.net.eval()
 
-    def predict(self, img: str, short_size: int = 736):
+    def predict(self, img, short_size=736):
         '''
          Predict the incoming image, support the image address, opecv read the picture, it is slow
          :param img: image address
