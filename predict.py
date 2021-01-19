@@ -111,7 +111,7 @@ if __name__ == '__main__':
     img_path = 'images/bill.jpg'
 
     # Initialize the network
-    model = Pytorch_model(model_path, gpu_id=0)
+    model = Pytorch_model(model_path)
     preds, boxes_list, t = model.predict(img_path)
     show_img(preds)
     img = draw_bbox(cv2.imread(img_path)[:, :, ::-1], boxes_list)
